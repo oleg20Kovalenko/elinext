@@ -1,0 +1,43 @@
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="cloud">Images Finder</a>
+      <a class="nav-link ml-auto" href="#"><img class="profile" src="./assets/icon-profile.jpeg" alt="profile" /></a>
+    </nav>
+  </header>
+  <section class="section">
+    <aside class="aside">
+      <a class="btn" routerLink="/cloud" routerLinkActive="active" id="cloud"><img class="profile"
+          src="./assets/cloud.png" alt="cloud"></a>
+      <a class="btn" routerLink="/book" routerLinkActive="active"><img class="profile"
+          src="./assets/book.png" alt="book"></a>
+    </aside>
+    <div class="main">
+      <div class="container">
+        <div class="form-group mt-4">
+          <input type="search" class="form-control" (keyup)="search($event)" placeholder="Find images" />
+        </div>
+        <pagination-controls class="pagination" (pageChange)="p = $event" previousLabel="Back" nextLabel="Forward">
+        </pagination-controls>
+  
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-4 p-3" *ngFor="
+            let image of images | paginate: { itemsPerPage: 20, currentPage: p }
+          ">
+            <div class="card">
+              <a href="{{ image.url }}_b.jpg">
+                <img src="{{ image.url }}_m.jpg" title="{{ image.title }}" />
+              </a>
+              <a href="#" class="btn btn-outline-primary bookmark">Bookmark it!</a>
+            </div>
+          </div>
+        </div>
+        <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+          (scrolled)="onScroll()"></div>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <nav class="navbar navbar-expand-lg navbar-light ">
+      <a class="navbar-brand" href="#">© Copyright</a>
+    </nav>
+  </footer>
